@@ -1,0 +1,18 @@
+program p1;
+  class c1;
+    rand bit [7:0] data;
+    rand bit [2:0] tmp;
+    constraint c1{
+      tmp inside {[1:7]};
+      data == ((tmp * 10) + tmp);
+    }
+    function void post_randomize();
+    $display("index %0d data %0d", tmp,data);
+    endfunction
+  endclass
+  c1 obj;
+  initial begin
+    obj = new;
+    repeat (8) obj.randomize();
+  end
+endprogram
